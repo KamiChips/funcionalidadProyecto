@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pacientes</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <h1>Gestión de Pacientes</h1>
+    <section>
+        <form id="formPaciente">
+            <input id="secure_key" name="secure_key" placeholder="Secure Key de Expediente" required>
+            <button type="submit">Agregar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Lista de Pacientes</h2>
+
+        <% if (pacientes.length === 0) { %>
+            <p>No hay pacientes registrados aún.</p>
+        <% } else { %>
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Secure Key</th>
+                    <th>Día de registro</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaDePacientes">
+                <% pacientes.forEach(paciente => { %>
+                <tr>
+                    <td><%= paciente.id %></td>
+                    <td><%= paciente.secure_key %></td>
+                    <td><%= new Date(paciente.registerDate).toLocaleString('es-ES') %></td>
+                    <td>
+                        <button onclick="eliminarExpediente('<%= paciente.id %>')">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <% } %>
+    </section>
+</body>
+</html>
